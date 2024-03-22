@@ -32,7 +32,10 @@ const ThreeScene = () => {
     } catch (error) {
       console.error('Renderer initialization failed:', error);
       return;
-    }
+    } 
+
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
 
     // Lighting setup
     const sunLight = new THREE.DirectionalLight(0xffeeb1, 1);
@@ -105,9 +108,14 @@ const ThreeScene = () => {
       forest.position.set(0, -0.28, 0);
       scene.add(forest);
 
-      // Mailbox model load
+      
+    // Declaring mailbox outside to ensure it's accessible in the mouse down event handler
+    let mailbox;
+
+    // Mailbox model load
+    
       mailboxLoader.load('models/mailbox/scene.gltf', (gltf) => {
-        const mailbox = gltf.scene;
+        mailbox = gltf.scene;
         mailbox.rotation.y = -Math.PI / 2;
         mailbox.position.set(0, 2, 1);
         forest.add(mailbox);
@@ -117,6 +125,19 @@ const ThreeScene = () => {
       }, (xhr) => console.log(`Mailbox model: ${xhr.loaded / xhr.total * 100}% loaded`), (error) => console.error('Error loading the mailbox model:', error));
     }, (xhr) => console.log(`Forest model: ${xhr.loaded / xhr.total * 100}% loaded`), (error) => console.error('Error loading the forest model:', error));
 
+    function onDocumentMouseDown(event) {
+      event.preventDefault(); 
+
+      mouse.x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
+      mouse.y = -(event.clientY / renderer.domElement.clientHeight) * 2 + 1; 
+
+      raycaster.setFromCamera(mouse, camera); 
+
+    } 
+
+    renderer.domElement.addEventListener('mousedown', onDocumentMouseDown, false);
+
+
     // OrbitControls setup
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true; // Optional: Enable damping (inertia), which can give a smoother control feeling.
@@ -125,7 +146,10 @@ const ThreeScene = () => {
     controls.maxPolarAngle = Math.PI / 2;
     controls.minPolarAngle = Math.PI / 2;
     controls.enableZoom = false;
-    controls.enablePan = false;
+    controls.enablePan = false; 
+
+    // Adjust the target for raising the scene
+    controls.target.y += .5;
 
 
     // Create bars function
@@ -183,7 +207,8 @@ const ThreeScene = () => {
     // Cleanup function
     const currentContainer = threeContainer.current;
 
-    return () => {
+    return () => { 
+    renderer.domElement.removeEventListener('mousedown', onDocumentMouseDown, false);
       if (currentContainer && renderer.domElement.parentElement === currentContainer) {
         currentContainer.removeChild(renderer.domElement);
       }
@@ -231,4 +256,3 @@ const ThreeScene = () => {
 };
 
 export default ThreeScene;
-
