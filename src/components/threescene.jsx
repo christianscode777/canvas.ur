@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
@@ -119,10 +119,14 @@ const ThreeScene = () => {
 
     // OrbitControls setup
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.01;
-    controls.autoRotate = false;
-    controls.maxPolarAngle = Math.PI / 2; // Limit the camera to the upper hemisphere
+    controls.enableDamping = true; // Optional: Enable damping (inertia), which can give a smoother control feeling.
+    controls.dampingFactor = 0.01; // Optional: Damping factor.
+    controls.autoRotate = false; // Optional: Enable if you want the camera to automatically rotate around the target.
+    controls.maxPolarAngle = Math.PI / 2;
+    controls.minPolarAngle = Math.PI / 2;
+    controls.enableZoom = false;
+    controls.enablePan = false;
+
 
     // Create bars function
     const createBar = (position, scale) => {
@@ -177,9 +181,11 @@ const ThreeScene = () => {
     window.addEventListener('resize', onWindowResize);
 
     // Cleanup function
+    const currentContainer = threeContainer.current;
+
     return () => {
-      if (threeContainer.current && renderer.domElement.parentElement === threeContainer.current) {
-        threeContainer.current.removeChild(renderer.domElement);
+      if (currentContainer && renderer.domElement.parentElement === currentContainer) {
+        currentContainer.removeChild(renderer.domElement);
       }
       window.removeEventListener('resize', onWindowResize);
       renderer.dispose();
