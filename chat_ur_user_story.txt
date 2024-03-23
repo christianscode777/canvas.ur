@@ -1,0 +1,28 @@
+
+Title: Chat.ur Application User Story
+
+Overview:
+The Chat.ur application provides a unique and engaging way for users to interact within a three-dimensional world, leveraging the power of three.js for rendering and interaction. This application combines the aspects of a chat program with the immersive experience of a virtual world, allowing users to communicate through a blend of traditional text messages and innovative visual elements.
+
+User Authentication:
+- As a user, I want to securely log into the Chat.ur application using OAuth for initial authentication, ensuring my personal and login information is protected.
+- As a user, I expect to undergo a 2-factor authentication process each time I log in, providing an additional layer of security to my account.
+
+Entering the Three-Dimensional World:
+- Once authenticated, as a user, I want to be transported into a vibrant, three-dimensional island world where I can freely navigate and explore its features.
+- As a user, I desire a personalized experience within the world, including a customizable avatar that represents me in the virtual environment.
+
+Message Management:
+- At the heart of the island, as a user, I expect to find a central mailbox structure where I can manage all my incoming and outgoing messages.
+- As a user, I want the ability to send and receive text messages through this mailbox, with notifications appearing within the world to alert me of new messages.
+
+Interactive Features for Communication:
+- Within this world, as a user, I am excited about the unique feature of a magical tree that serves as a communal canvas for drawing and sharing visual messages.
+- As a user, when I draw on this tree and send the drawing to a friend, I expect the drawing to appear on the same tree in their version of the world, fostering a creative way to communicate.
+
+Friend Interaction:
+- As a user, I want the ability to add and manage friends within the Chat.ur application, enabling me to easily connect and share experiences with others in this virtual world.
+- As a user, I look forward to participating in shared activities or challenges within the world, enhancing the sense of community and interaction.
+
+Conclusion:
+The Chat.ur application aims to redefine the way users interact in virtual spaces, providing a secure, immersive, and creative platform for communication and exploration. Through its innovative features and engaging three-dimensional world, it promises to offer a unique and memorable experience to all users.
